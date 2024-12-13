@@ -72,11 +72,9 @@ class DoclingConverter:
             else {"image_placeholder": ""}
         )
         if self._export_type == ExportType.DOC_CHUNKS:
-            self._chunker = (
-                # TODO remove tokenizer parameter:
-                HybridChunker(tokenizer="sentence-transformers/all-MiniLM-L6-v2")
-                if chunker is None
-                else chunker
+            # TODO remove tokenizer once docling-core ^2.10.0 guaranteed via docling:
+            self._chunker = chunker or HybridChunker(
+                tokenizer="sentence-transformers/all-MiniLM-L6-v2"
             )
         self._meta_extractor = meta_extractor or MetaExtractor()
 
