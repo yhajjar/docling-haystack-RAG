@@ -1,0 +1,86 @@
+[tool.poetry]
+name = "docling-haystack"
+version = "0.1.0"
+description = "Docling Haystack converter"
+authors = ["Panos Vagenas <pva@zurich.ibm.com>"]
+readme = "README.md"
+
+packages = [{ include = "docling_haystack" }]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"  # constraining below 3.13 due to haystack-ai 2.8.0
+haystack-ai = "^2.8.0"
+huggingface-hub = ">=0.23.0"
+python-dotenv = "^1.0.1"
+docling = "^2.9.0"
+sentence-transformers = "^3.0.0"
+pymilvus = "^2.5.0"
+milvus-haystack = "^0.0.11"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+black = "^24.4.2"
+pytest = "^7.1.2"
+mypy = "^1.6.0"
+isort = "^5.10.1"
+pre-commit = "^3.7.1"
+autoflake = "^2.0.0"
+flake8 = "^7.1.0"
+pycodestyle = "^2.10.0"
+flake8-docstrings = "^1.6.0"
+pep8-naming = "^0.13.2"
+nbqa = "^1.9.0"
+python-semantic-release = "^7.32.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310"]
+include = '\.pyi?$'
+preview = true
+
+[tool.isort]
+profile = "black"
+line_length = 88
+py_version = 39
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.autoflake]
+in-place = true
+ignore-init-module-imports = true
+remove-all-unused-imports = true
+remove-unused-variables = true
+expand-star-imports = true
+recursive = true
+
+[tool.mypy]
+pretty = true
+no_implicit_optional = true
+namespace_packages = true
+show_error_codes = true
+python_version = "3.9"
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = [
+    "haystack.*",
+]
+ignore_missing_imports = true
+
+[tool.semantic_release]
+# for default values check:
+# https://github.com/python-semantic-release/python-semantic-release/blob/v7.32.2/semantic_release/defaults.cfg
+
+version_source = "tag_only"
+branch = "main"
+
+# configure types which should trigger minor and patch version bumps respectively
+# (note that they must be a subset of the configured allowed types):
+parser_angular_allowed_types = "build,chore,ci,docs,feat,fix,perf,style,refactor,test"
+parser_angular_minor_types = "feat"
+parser_angular_patch_types = "fix,perf"

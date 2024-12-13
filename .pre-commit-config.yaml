@@ -1,0 +1,57 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: Black
+        entry: poetry run black docling_haystack test
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: isort
+        name: isort
+        entry: poetry run isort docling_haystack test
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: autoflake
+        name: autoflake
+        entry: poetry run autoflake docling_haystack test
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: mypy
+        name: MyPy
+        entry: poetry run mypy docling_haystack test
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: flake8
+        name: Flake8
+        entry: poetry run flake8 docling_haystack
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: pytest
+        name: Pytest
+        entry: poetry run pytest test/
+        pass_filenames: false
+        language: system
+        files: '\.py$'
+      - id: nbqa_black
+        name: nbQA Black
+        entry: poetry run nbqa black examples/
+        pass_filenames: false
+        language: system
+        files: '\.ipynb$'
+      - id: nbqa_isort
+        name: nbQA isort
+        entry: poetry run nbqa isort examples/
+        pass_filenames: false
+        language: system
+        files: '\.ipynb$'
+      - id: poetry
+        name: Poetry
+        entry: poetry check --lock
+        pass_filenames: false
+        language: system
