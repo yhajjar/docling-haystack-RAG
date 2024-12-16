@@ -77,8 +77,6 @@ def test_convert_markdown(monkeypatch):
     )
     docs = converter.run(paths=PATHS)["documents"]
     act_data = dict(root=[d.to_dict() for d in docs])
-    with open(EXPECTED_OUT_FILE, "w") as f:
-        json.dump(act_data, fp=f, indent=4)
     with open(EXPECTED_OUT_FILE) as f:
         exp_data = json.load(fp=f)
     assert exp_data == act_data
