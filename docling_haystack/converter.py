@@ -66,7 +66,25 @@ class DoclingConverter:
         chunker: Optional[BaseChunker] = None,
         meta_extractor: Optional[BaseMetaExtractor] = None,
     ):
-        """Create a Docling Haystack converter."""
+        """Create a Docling Haystack converter.
+
+        Args:
+            converter: The Docling `DocumentConverter` to use; if not set, a system
+                default is used.
+            convert_kwargs: Any parameters to pass to Docling conversion; if not set, a
+                system default is used.
+            export_type: The export mode to use: set to `ExportType.MARKDOWN` if you
+                want to capture each input document as a separate Haystack document, or
+                `ExportType.DOC_CHUNKS` (default), if you want to first have each input
+                document chunked and to then capture each individual chunk as a separate
+                Haystack document downstream.
+            md_export_kwargs: Any parameters to pass to Markdown export (applicable in
+                case of `ExportType.MARKDOWN`).
+            chunker: The Docling chunker instance to use; if not set, a system default
+                is used.
+            meta_extractor: The extractor instance to use for populating the output
+                document metadata; if not set, a system default is used.
+        """
         self._converter = converter or DocumentConverter()
         self._convert_kwargs = convert_kwargs if convert_kwargs is not None else {}
         self._export_type = export_type
@@ -87,16 +105,13 @@ class DoclingConverter:
         self,
         paths: Iterable[Union[Path, str]],
     ):
-        """Run the component.
+        """Run the DoclingConverter.
 
         Args:
-            paths (Iterable[Union[Path, str]]): _description_
-
-        Raises:
-            RuntimeError: _description_
+            paths: The input document locations, either as local paths or URLs.
 
         Returns:
-            _type_: _description_
+            list[Document]: The output Haystack Documents.
         """
         documents: list[Document] = []
         for filepath in paths:
