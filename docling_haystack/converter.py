@@ -42,12 +42,12 @@ class MetaExtractor(BaseMetaExtractor):
 
     def extract_chunk_meta(self, chunk: BaseChunk) -> dict[str, Any]:
         """Extract chunk meta."""
-        return chunk.export_json_dict()
+        return {"dl_meta": chunk.export_json_dict()}
 
     def extract_dl_doc_meta(self, dl_doc: DoclingDocument) -> dict[str, Any]:
         """Extract Docling document meta."""
         return (
-            {"origin": dl_doc.origin.model_dump(exclude_none=True)}
+            {"dl_meta": {"origin": dl_doc.origin.model_dump(exclude_none=True)}}
             if dl_doc.origin
             else {}
         )
