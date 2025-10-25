@@ -4,3 +4,4 @@ haystack-ai
 docling-haystack
 docling
 sentence-transformers
+python-multipart
