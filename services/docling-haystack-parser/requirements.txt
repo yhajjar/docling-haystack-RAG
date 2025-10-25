@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+haystack-ai
+docling-haystack
+docling
+sentence-transformers
