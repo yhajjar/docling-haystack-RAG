@@ -5,3 +5,7 @@ docling-haystack
 docling
 sentence-transformers
 python-multipart
+# OCR (heavier, higher accuracy, Arabic supported)
+torch>=2.3.0
+easyocr>=1.7.1
+opencv-python-headless>=4.9
