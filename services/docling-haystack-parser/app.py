@@ -30,7 +30,7 @@ async def convert(
     file: Optional[UploadFile] = File(None),
     url: Optional[str] = Form(None),
     export_type: Optional[str] = Form("DOC_CHUNKS"),
-    x_api_key: Optional[str] = Header(None, convert_underscores=False)
+    x_api_key: Optional[str] = Header(None, alias="X-Api-Key")
 ):
     auth_guard(x_api_key)
 
